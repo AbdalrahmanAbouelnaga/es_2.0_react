@@ -141,7 +141,7 @@ export function Nav() {
             </div>
             </div>
             <div className="navbar-end">
-                <div className="buttons columns is-multiline has-background-black m-0">
+                <div className="buttons custom-buttons columns is-multiline has-background-black m-0">
                     {isAuthenticated?(
                         <>
                         <a href="/myaccount" className="navbar-item column button is-black">MyAccount</a>
@@ -159,8 +159,8 @@ export function Nav() {
             </div>
         </nav>
     </div>
-    <div className="navbar is-dark height-size is-fixed-top" style={{zIndex: "3",marginTop: "3.5rem",minHeight: "2rem",height: "2rem",fontSize: "0.8rem",}}> 
-    <div className="navbar-brand is-flex is-align-items-center height-size" style={{zIndex: "0",minHeight: "2rem",height: "2rem",fontSize: "0.8rem",}}>
+    <div className="navbar is-dark height-size is-fixed-top margin-mobile" style={{zIndex: "3",minHeight: "2rem",height: "2rem",fontSize: "0.8rem",}}> 
+    <div className="navbar-brand is-flex is-align-items-center height-size " style={{zIndex: "0",minHeight: "2rem",height: "2rem",fontSize: "0.8rem",}}>
       <button className="navbar-burger navbar-item columns is-flex height-size" aria-label="menu" aria-expanded="false" style={{paddingBottom: 0,
 marginBottom: "0px",
 marginTop: "0px",
@@ -174,7 +174,7 @@ height: "2rem",}} onClick={toggleSideMenu}>
         <div className="">All</div>
       </button>
     </div>
-    <div className="navbar-start ml-4 height-size">
+    <div className="navbar-start custom-overflow ml-4 height-size">
             {
                 navCategories.length>0?navCategories.map(
                     category=>category.subCategories.map((sub,index)=> index<2?<a href={sub.url} key={sub.title} className="navbar-item">{sub.title}</a>:'')

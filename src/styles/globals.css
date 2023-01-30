@@ -112,5 +112,44 @@ a {
   }
 }
 
-@import '../../node_modules/bulma/css/bulma.min.css'
+
+.margin-mobile {
+  margin-top: 3.5rem;
+}
+@media screen and (max-width:1024px){
+  .custom-overflow{
+    overflow: scroll;
+  }
+  .custom-buttons {
+    display: flex;
+flex-direction: row;
+justify-content: space-between;
+padding-right: 2rem;
+padding-left: 2rem;
+  }
+  .margin-mobile {
+    margin-top: 3.2rem;
+  }
+  .height-size{
+    justify-content: flex-start;
+margin-right: auto;
+align-items: stretch;
+display: flex;
+color: white;
+  }
+  .navbar-item {
+    flex-grow: 0;
+flex-shrink: 0;
+color: white;
+font-size: 0.5rem;
+display: flex;
+flex-direction: row;
+flex-grow: 0;
+align-items: center;
+  }
+}
+@import url('../../node_modules/bulma/css/bulma.min.css')
+
+
+
 
