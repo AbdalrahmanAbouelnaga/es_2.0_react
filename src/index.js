@@ -8,10 +8,14 @@ import './styles/globals.css'
 import { Layout } from './components/Layout'
 import Login from './pages/Login';
 import SignUp  from './pages/SignUp';
+import ProductList from './pages/ProductList'
+import ProductDetail from './pages/ProductDetail';
+
+
 
 import { createBrowserRouter,RouterProvider } from 'react-router-dom';
 
-import { GlobalProvider } from './context/GlobalContext';
+import { AuthProvider } from './context/AuthContext';
 
 import axios from 'axios'
 
@@ -30,6 +34,14 @@ const router = createBrowserRouter([
   {
     path:"/signup",
     element:<SignUp />
+  },
+  {
+    path:"/categories/:category_slug/subcategories/:subcategory_slug",
+    element:<ProductList />
+  },
+  {
+    path:"/categories/:category_slug/subcategories/:subcategory_slug/products/:product",
+    element: <ProductDetail />
   }
 
 ])
@@ -38,11 +50,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <GlobalProvider>
+    <AuthProvider>
       <Layout>
         <RouterProvider router={router} />
       </Layout>
-    </GlobalProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 

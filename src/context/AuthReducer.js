@@ -12,7 +12,9 @@ export default (state,action)=>{
                 token: action.payload,
                 isAuthenticated:true
             }
+
         default:
             return state
     }
 }
+

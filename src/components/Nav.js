@@ -1,15 +1,15 @@
 import React from "react"
 import { Sidebar } from "./Sidebar"
-import { GlobalContext } from "../context/GlobalContext"
+import { AuthContext } from "../context/AuthContext"
 import { useContext } from "react"
 import { useState } from "react"
 
 export function Nav() {
 
-    const {isAuthenticated,removeToken} = useContext(GlobalContext)
+    const {isAuthenticated,removeToken} = useContext(AuthContext)
 
 
-    const [navCategories,setNavCategories]=useState([
+    const navCategories=[
         {
             "url": "/categories/computers-office-supplies/",
             "title": "Computers & Office Supplies",
@@ -104,7 +104,7 @@ export function Nav() {
                 }
             ]
         }
-      ])
+      ]
 
       const [showMobileMenu,setMobileMenu]=useState(false)
       const [showSideMenu,setSideMenu]=useState(false)

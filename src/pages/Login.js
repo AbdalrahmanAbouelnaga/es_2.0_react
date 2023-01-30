@@ -2,12 +2,12 @@ import axios from 'axios'
 import { toast } from 'bulma-toast'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { GlobalContext } from '../context/GlobalContext'
+import { AuthContext } from '../context/AuthContext'
 import { useContext } from 'react'
 
 
 export default function Login() {
-    const {setToken} = useContext(GlobalContext)
+    const {setToken} = useContext(AuthContext)
     const Navigate = useNavigate()
     const [username,setUsername]= useState('')
     const [password,setPassword]= useState('')

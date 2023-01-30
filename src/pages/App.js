@@ -15,11 +15,7 @@ function App() {
   let productBoxes = products.map(product=>{
     return <ProductBox product={product} key={product.id} />
   })
-  useEffect(()=>{
-    productBoxes = products.map(product=>{
-      return <ProductBox product={product} key={product.id} />
-    })
-  },[products])
+
 
   return (
     <>
