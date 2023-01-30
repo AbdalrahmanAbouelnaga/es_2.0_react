@@ -29,7 +29,7 @@ function App() {
               <p className="title">Latest Products</p>
             </div>
           </div>
-          <div className="column is-10 is-offset-1 columns" style={{gap:'1rem'}}>
+          <div className="column is-10 is-offset-1 custom-gap columns">
             {productBoxes}
             </div>
         </div>
