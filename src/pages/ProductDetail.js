@@ -1,13 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
 import { useContext } from 'react'
+import { CartContext } from '../context/CartContext'
 import { useEffect } from 'react'
 import axios from 'axios'
 const ProductDetail = () => {
     const [product,setProduct] = useState({})
     const [isLoading,setIsLoading] = useState(true)
     const [quantity,setQuantity] = useState(1)
-
+    const {addToCart} = useContext(CartContext)
     useEffect(()=>{
         axios.get(window.location.pathname)
              .then(response=>{
@@ -18,10 +19,18 @@ const ProductDetail = () => {
     },[])
 
     function handleQuantity(e){
-        setQuantity(e.target.value)
+        if (isNaN(e.target.value) || e.target.value<=0){
+            setQuantity(1)
+        }else{
+            setQuantity(parseInt(e.target.value))
+        }
     }
     function handleAdd(e){
-
+        e.target.disabled = true
+        addToCart({product,quantity})
+        setInterval(()=>{
+            e.target.disabled = false
+        },1000)
     }
 
     function totalPrice(){

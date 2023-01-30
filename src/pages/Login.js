@@ -56,7 +56,7 @@ export default function Login() {
     }
 
     return (
-        <div className="column is-12 columns is-multiline">
+        <div className="column is-12 mt-6 columns is-multiline">
         <div className="column is-4 is-offset-4">
             <form onSubmit={e=>{handleSubmit(e)}} className="box p-4">
                 <h2 className="title has-text-centered">Login</h2>

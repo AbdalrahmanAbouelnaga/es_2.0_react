@@ -3,10 +3,13 @@ import { Sidebar } from "./Sidebar"
 import { AuthContext } from "../context/AuthContext"
 import { useContext } from "react"
 import { useState } from "react"
+import { CartContext } from "../context/CartContext"
+
 
 export function Nav() {
 
     const {isAuthenticated,removeToken} = useContext(AuthContext)
+    const {cart} = useContext(CartContext)
 
 
     const navCategories=[
@@ -145,14 +148,14 @@ export function Nav() {
                     {isAuthenticated?(
                         <>
                         <a href="/myaccount" className="navbar-item column button is-black">MyAccount</a>
-                        <a href="/cart" className="navbar-item column button is-black">Cart</a>
+                        <a href="/cart" className="navbar-item column button is-black">Cart ({cart.items.reduce((acc,curVal)=>{return acc += curVal.quantity},0)})</a>
                         <a className="navbar-item column button is-black" onClick={removeToken}>Logout</a>
                         </>
                     ):(
                         <>
                         <a href="/signup" className="navbar-item column button is-black">Sign Up</a>
                     <a href="/login" className="navbar-item column button is-black">Login</a>
-                    <a href="/cart" className="navbar-item column button is-black">Cart</a>
+                    <a href="/cart" className="navbar-item column button is-black">Cart ({cart.items.reduce((acc,curVal)=>{return acc += curVal.quantity},0)})</a>
                     </>)
                     }
                 </div>

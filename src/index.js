@@ -10,12 +10,14 @@ import Login from './pages/Login';
 import SignUp  from './pages/SignUp';
 import ProductList from './pages/ProductList'
 import ProductDetail from './pages/ProductDetail';
+import Cart from './pages/Cart';
 
 
 
 import { createBrowserRouter,RouterProvider } from 'react-router-dom';
 
 import { AuthProvider } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
 
 import axios from 'axios'
 
@@ -42,6 +44,10 @@ const router = createBrowserRouter([
   {
     path:"/categories/:category_slug/subcategories/:subcategory_slug/products/:product",
     element: <ProductDetail />
+  },
+  {
+    path:"/cart",
+    element:<Cart />
   }
 
 ])
@@ -51,9 +57,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <Layout>
-        <RouterProvider router={router} />
-      </Layout>
+      <CartProvider>
+        <Layout>
+          <RouterProvider router={router} />
+        </Layout>
+      </CartProvider>
     </AuthProvider>
   </React.StrictMode>
 );
