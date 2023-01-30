@@ -31,7 +31,7 @@ const ProductDetail = () => {
     
 
   return (
-    (isLoading===true)?<></>:(<div className="columns">
+    (isLoading===true)?<></>:(<div className="columns" style={{marginTop:"5rem",}}>
     <div className="column is-6">
         <figure className="image">
             <img src={product.images[0].image} alt='' />
