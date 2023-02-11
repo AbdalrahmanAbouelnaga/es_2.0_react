@@ -1,12 +1,13 @@
 import React, { createContext, useReducer} from "react";
+import axiosInstance from "../axios";
 import AuthReducer from './AuthReducer'
 
 let initialState = {}
 
-if (localStorage.getItem('token')){
+if (sessionStorage.getItem('token')){
         initialState = {
-            token:'',
-            isAuthenticated:false,
+            token:JSON.parse(sessionStorage.getItem('token')).token,
+            isAuthenticated:true,
         }
     }else {
     initialState = {
@@ -25,14 +26,14 @@ export const AuthProvider =  ({children})=>{
     
 
     function setToken(token){
-        localStorage.setItem('token',token)
+        sessionStorage.setItem('token',JSON.stringify({"token":token}))
         dispatch({
             type:'setToken',
             payload:token
         })
     }
     function removeToken(){
-        localStorage.removeItem('token')
+        sessionStorage.clear()
         dispatch({
             type:'removeToken',
         })

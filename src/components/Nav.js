@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Sidebar } from "./Sidebar"
 import { AuthContext } from "../context/AuthContext"
 import { useContext } from "react"
 import { useState } from "react"
 import { CartContext } from "../context/CartContext"
+import axios from "axios"
 
 
 export function Nav() {
@@ -12,107 +13,17 @@ export function Nav() {
     const {cart} = useContext(CartContext)
 
 
-    const navCategories=[
-        {
-            "url": "/categories/computers-office-supplies/",
-            "title": "Computers & Office Supplies",
-            "subCategories": [
-                {
-                    "url": "/categories/computers-office-supplies/subcategories/laptops/",
-                    "title": "Laptops"
-                },
-                {
-                    "url": "/categories/computers-office-supplies/subcategories/desktop-monitors/",
-                    "title": "Desktop & Monitors"
-                },
-                {
-                    "url": "/categories/computers-office-supplies/subcategories/printers-accessories/",
-                    "title": "Printers & Accessories"
-                },
-                {
-                    "url": "/categories/computers-office-supplies/subcategories/drives-storage/",
-                    "title": "Drives & Storage"
-                },
-                {
-                    "url": "/categories/computers-office-supplies/subcategories/keyboards-mice/",
-                    "title": "Keyboards & Mice"
-                }
-            ]
-        },
-        {
-            "url": "/categories/mobilestablets-more/",
-            "title": "Mobiles,Tablets & More",
-            "subCategories": [
-                {
-                    "url": "/categories/mobilestablets-more/subcategories/mobile-phones/",
-                    "title": "Mobile Phones"
-                },
-                {
-                    "url": "/categories/mobilestablets-more/subcategories/tablets/",
-                    "title": "Tablets"
-                },
-                {
-                    "url": "/categories/mobilestablets-more/subcategories/cases-covers/",
-                    "title": "Cases & Covers"
-                },
-                {
-                    "url": "/categories/mobilestablets-more/subcategories/power-banks-chargers/",
-                    "title": "Power Banks & Chargers"
-                }
-            ]
-        },
-        {
-            "url": "/categories/tvs-electronics/",
-            "title": "Tvs & Electronics",
-            "subCategories": [
-                {
-                    "url": "/categories/tvs-electronics/subcategories/televisions/",
-                    "title": "Televisions"
-                },
-                {
-                    "url": "/categories/tvs-electronics/subcategories/speakers/",
-                    "title": "Speakers"
-                },
-                {
-                    "url": "/categories/tvs-electronics/subcategories/headphones/",
-                    "title": "Headphones"
-                }
-            ]
-        },
-        {
-            "url": "/categories/mens-fashion/",
-            "title": "Men's Fashion",
-            "subCategories": [
-                {
-                    "url": "/categories/mens-fashion/subcategories/mens-jackets/",
-                    "title": "Men's Jackets"
-                },
-                {
-                    "url": "/categories/mens-fashion/subcategories/mens-shoes/",
-                    "title": "Men's Shoes"
-                }
-            ]
-        },
-        {
-            "url": "/categories/womens-fashion/",
-            "title": "Women's Fashion",
-            "subCategories": [
-                {
-                    "url": "/categories/womens-fashion/subcategories/womens-jackets/",
-                    "title": "Women's Jackets"
-                },
-                {
-                    "url": "/categories/womens-fashion/subcategories/womens-shoes/",
-                    "title": "Women's Shoes"
-                }
-            ]
-        }
-      ]
+    const [categories,setCategories]= useState([])
 
       const [showMobileMenu,setMobileMenu]=useState(false)
       const [showSideMenu,setSideMenu]=useState(false)
 
-
+    useEffect(()=>{
+        axios.get('/categories')
+             .then(response=>{
+                setCategories(response.data)
+             })
+    },[])
 
 
     function toggleMobileMenu(){
@@ -155,7 +66,6 @@ export function Nav() {
                         <>
                         <a href="/signup" className="navbar-item column button is-black">Sign Up</a>
                     <a href="/login" className="navbar-item column button is-black">Login</a>
-                    <a href="/cart" className="navbar-item column button is-black">Cart ({cart.items.reduce((acc,curVal)=>{return acc += curVal.quantity},0)})</a>
                     </>)
                     }
                 </div>
@@ -179,12 +89,12 @@ height: "2rem",}} onClick={toggleSideMenu}>
     </div>
     <div className="navbar-start custom-overflow ml-4 height-size">
             {
-                navCategories.length>0?navCategories.map(
-                    category=>category.subCategories.map((sub,index)=> index<2?<a href={sub.url} key={sub.title} className="navbar-item">{sub.title}</a>:'')
+                categories.length>0?categories.map(
+                    category=>category.sub_categories.map((sub,index)=> index<2?<a href={sub.url} key={sub.title} className="navbar-item">{sub.title}</a>:'')
                 ):''
             }
     </div>
   </div>
-        <Sidebar toggleSideMenu={toggleSideMenu} navCategories={navCategories} showSideMenu={showSideMenu} />
+        <Sidebar toggleSideMenu={toggleSideMenu} categories={categories} showSideMenu={showSideMenu} />
     </>
   )}

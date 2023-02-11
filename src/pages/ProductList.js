@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { ProductBox } from '../components/ProductBox'
-import axios from 'axios'
+import axiosInstance from '../axios'
 const ProductList = () => {
     const [products,setProducts] = useState([])
     const [category,setCategory] = useState('')
@@ -10,18 +10,16 @@ const ProductList = () => {
 
 
     useEffect(()=>{
-        axios.get(window.location.pathname)
+        axiosInstance.get(window.location.pathname)
              .then(response=>{
-                setProducts(response.data.products)
-                setCategory(response.data.category)
-                setSubCategory(response.data.title)
+                setProducts(response.data)
              }).catch(error=>{
                 console.log(error)
              })
     },[])
 
     let productBoxes = products.map(product=>{
-        return <ProductBox product={product} key={product.id} />
+        return <ProductBox product={product} key={product.title} />
       })
 
     

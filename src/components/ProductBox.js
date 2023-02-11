@@ -7,7 +7,6 @@ export const ProductBox = (props) => {
     <a href={product.url}><img src={product.images[0].thumbnail} alt="" className={styles.cardImg} /></a>
     <div className={styles.cardInfo}>
       <p className={`${styles.textTitle} is-size-6`}>{product.title}</p>
-      <p className={styles.textBody}>{product.description}</p>
     </div>
     <div className={styles.cardFooter}>
     <span className={styles.textTitle}>${product.price}</span>

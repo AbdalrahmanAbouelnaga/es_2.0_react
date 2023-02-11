@@ -12,24 +12,36 @@ export default (state,action)=>{
                 }
                 const updatedItems = [...state.cart.items]
                 updatedItems[index] = updatedItem
-                localStorage.setItem('cart',JSON.stringify({items:[
+                const updatedNumber= updatedItems.reduce((acc,curVal)=>{return acc+=curVal.quantity},0)
+                const updatedPrice = updatedItems.reduce((acc,curVal)=>{return acc+=(curVal.product.price*curVal.quantity)},0)
+                sessionStorage.setItem('cart',JSON.stringify({
+                    number_of_items:updatedNumber,
+                    total_price:updatedPrice,
+                    items:[
                     ...updatedItems
                 ]}))
                 return{
                     cart:{
+                        number_of_items:updatedNumber,
+                        total_price:updatedPrice,
                         items:updatedItems,
                     }
                 }
             }else{
                 const updatedItems = state.cart.items.concat(action.payload)
-                localStorage.setItem('cart',JSON.stringify({items:[
+                const updatedNumber= updatedItems.reduce((acc,curVal)=>{return acc+=curVal.quantity},0)
+                const updatedPrice = updatedItems.reduce((acc,curVal)=>{return acc+=(curVal.product.price*curVal.quantity)},0)
+                sessionStorage.setItem('cart',JSON.stringify({
+                    number_of_items:updatedNumber,
+                    total_price:updatedPrice,
+                    items:[
                     ...updatedItems
                 ]}))
-                return {
+                return{
                     cart:{
-                        items:[
-                            ...updatedItems
-                        ]
+                        number_of_items:updatedNumber,
+                        total_price:updatedPrice,
+                        items:updatedItems,
                     }
                 }
             }
@@ -38,20 +50,25 @@ export default (state,action)=>{
         case 'removeFromCart':{
             console.log(action.payload)
             const updatedItems = state.cart.items.filter(i=>i.product.id!==action.payload)
-            localStorage.setItem('cart',JSON.stringify({items:[
-                ...updatedItems
-            ]}))
-            return {
-                cart:{
+            const updatedNumber= updatedItems.reduce((acc,curVal)=>{return acc+=curVal.quantity},0)
+            const updatedPrice = updatedItems.reduce((acc,curVal)=>{return acc+=(curVal.product.price*curVal.quantity)},0)
+            sessionStorage.setItem('cart',JSON.stringify({
+                    number_of_items:updatedNumber,
+                    total_price:updatedPrice,
                     items:[
-                        ...updatedItems
-                    ]
+                    ...updatedItems
+                ]}))
+                return{
+                    cart:{
+                        number_of_items:updatedNumber,
+                        total_price:updatedPrice,
+                        items:updatedItems,
+                    }
                 }
-            }
         }
         case 'clearCart':{
             state.cart.items = []
-            localStorage.removeItem('cart')
+            sessionStorage.removeItem('cart')
             return {
                 cart:{
                     items:[]
@@ -67,11 +84,20 @@ export default (state,action)=>{
                 }
                 const updatedItems = [...state.cart.items]
                 updatedItems[index] = updatedItem
-                localStorage.setItem('cart',JSON.stringify({items:[
+                const updatedNumber= updatedItems.reduce((acc,curVal)=>{return acc+=curVal.quantity},0)
+                const updatedPrice = updatedItems.reduce((acc,curVal)=>{
+                    return acc+=(curVal.product.price*curVal.quantity)},0)
+                sessionStorage.setItem('cart',JSON.stringify({
+                    number_of_items:updatedNumber,
+                    total_price:updatedPrice,
+                    items:[
                     ...updatedItems
                 ]}))
+                console.log(updatedPrice)
                 return{
                     cart:{
+                        number_of_items:updatedNumber,
+                        total_price:updatedPrice,
                         items:updatedItems,
                     }
                 }

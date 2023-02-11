@@ -1,21 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import {AiOutlineRight,AiOutlineLeft} from 'react-icons/ai'
 
 
-export const Sidebar = ({navCategories,showSideMenu,toggleSideMenu}) => {
+export const Sidebar = ({categories,showSideMenu,toggleSideMenu}) => {
     const [menuLabel,setMenuLabel] = useState(<span>Categories</span>)
-    const [menu,setMenu] = useState(navCategories.map(category=>(
-    <li key={category.title} onClick={()=>{subCategoriesList(category)}}>
-    <a>
-        {category.title}
-        <AiOutlineRight></AiOutlineRight>
-        </a>
-        </li>)))
-    
+    const [menu,setMenu] = useState(null)
+
+    useEffect(()=>{
+        setMenu(categories.map(category=>(
+            <li key={category.title} onClick={()=>{subCategoriesList(category)}}>
+            <a>
+                {category.title}
+                <AiOutlineRight></AiOutlineRight>
+                </a>
+                </li>)))
+    },[categories])
     function returnToCategories(){
         setMenuLabel(<span>Categories</span>)
-        setMenu(navCategories.map(category=>(
+        setMenu(categories.map(category=>(
             <li key={category.title} onClick={()=>{subCategoriesList(category)}}>
             <a>
                 {category.title}
@@ -27,7 +30,7 @@ export const Sidebar = ({navCategories,showSideMenu,toggleSideMenu}) => {
     function subCategoriesList(category){
         setMenuLabel(<a onClick={returnToCategories}><AiOutlineLeft></AiOutlineLeft><span>{category.title}</span></a>)
         
-        setMenu(category.subCategories.map(sub=>
+        setMenu(category.sub_categories.map(sub=>
              (<li key={sub.title} >
             <a href={sub.url}>
                 {sub.title}

@@ -1,9 +1,9 @@
-import axios from 'axios'
 import { toast } from 'bulma-toast'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { useContext } from 'react'
+import axiosInstance from '../axios'
 
 
 export default function Login() {
@@ -28,23 +28,25 @@ export default function Login() {
     function handleSubmit(e){
         e.preventDefault()
         const data = {username,password}
-        axios.post('/token/login/',data)
+        const form_data = new FormData(e.target)
+        axiosInstance.post('/login/',form_data)
              .then(res=>{
-                const token = res.data.auth_token
+                const token = res.data.token
                 localStorage.setItem('token',JSON.stringify(token))
                 setToken(token)
                 toast({
-                    message:"Login successful,Redirecting to home page.",
+                    message:res.data.message,
                     position:"bottom-right",
                     pauseOnHover:true,
                     dismissible:true,
                     duration:1500,
                     type:"is-success"
                 })
+
                 Navigate("/")
              }).catch(error=>{
                 toast({
-                    message:"Something went wrong.Please try again",
+                    message:error.response.data.non_field_errors[0],
                     position:"bottom-right",
                     pauseOnHover:true,
                     dismissible:true,

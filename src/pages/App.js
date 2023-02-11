@@ -1,19 +1,28 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState,useContext } from 'react';
+import axiosInstance from '../axios';
 import { ProductBox } from '../components/ProductBox';
-
+import { AuthContext } from '../context/AuthContext';
 
 function App() {
   const [products,setProducts] = useState([])
+  const {isAuthenticated} = useContext(AuthContext)
+  
   useEffect(()=>{
-    axios.get('/latestProducts')
+  if (isAuthenticated){
+    axiosInstance.get('/cart/')
+    .then(res=>sessionStorage.setItem('cart',JSON.stringify(res.data)))
+    .catch(error=>console.log(error))
+  }
+},[])
+  useEffect(()=>{
+    axiosInstance.get('/latest-products')
          .then(response=>{
           setProducts(response.data)
          }).catch(error=>console.log(error))
   },[])
 
   let productBoxes = products.map(product=>{
-    return <ProductBox product={product} key={product.id} />
+    return <ProductBox product={product} key={product.title} />
   })
 
 

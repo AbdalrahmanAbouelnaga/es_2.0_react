@@ -6,9 +6,9 @@ import CartReducer from './CartReducer'
 let initialState ={}
 
 
-if (localStorage.getItem('cart')){
+if (sessionStorage.getItem('cart')){
     initialState = {
-        cart:JSON.parse(localStorage.getItem('cart'))
+        cart:JSON.parse(sessionStorage.getItem('cart'))
     }
 }else {
     initialState = {

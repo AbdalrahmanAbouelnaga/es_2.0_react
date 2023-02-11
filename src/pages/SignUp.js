@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import axios from 'axios'
+import axiosInstance from '../axios'
 import { toast } from 'bulma-toast'
 import { useNavigate } from 'react-router-dom'
 
@@ -24,8 +24,8 @@ const SignUp = () => {
                 last_name,
                 password:password1
             }
-            console.log(data)
-            axios.post('/user/',data)
+            console.log(e.target)
+            axiosInstance.post('/signup/',data)
                 .then(response=>{
                     console.log(response.data)
                     toast({
@@ -82,7 +82,7 @@ const SignUp = () => {
 
   return (
     <>
-    <div className="columns is-multiline">
+    <div className="columns is-multiline mt-6">
         <div className="column is-8 is-offset-2">
             <form onSubmit={(e)=>{handleSubmit(e)}} className="columns is-multiline box">
                 <h2 className="column is-12 has-text-centered title">Sign Up</h2>

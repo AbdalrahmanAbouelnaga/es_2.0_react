@@ -11,6 +11,10 @@ import SignUp  from './pages/SignUp';
 import ProductList from './pages/ProductList'
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
+import MyAccount from './pages/MyAccount';
+import Checkout from './pages/Checkout';
+import Success from './pages/Success';
+import NotFound from './pages/NotFound';
 
 
 
@@ -21,7 +25,7 @@ import { CartProvider } from './context/CartContext';
 
 import axios from 'axios'
 
-axios.defaults.baseURL = 'https://e-store-2-test.up.railway.app/'
+axios.defaults.baseURL = 'https://estore2.up.railway.app'
 
 const router = createBrowserRouter([
   {
@@ -38,16 +42,32 @@ const router = createBrowserRouter([
     element:<SignUp />
   },
   {
-    path:"/categories/:category_slug/subcategories/:subcategory_slug",
+    path:"/:subcategory_slug/products",
     element:<ProductList />
   },
   {
-    path:"/categories/:category_slug/subcategories/:subcategory_slug/products/:product",
+    path:"/product/:product",
     element: <ProductDetail />
   },
   {
     path:"/cart",
     element:<Cart />
+  },
+  {
+    path:'/cart/checkout/',
+    element:<Checkout />
+  },
+  {
+    path:'/cart/checkout/success/',
+    element:<Success />
+  },
+  {
+    path:'/myaccount',
+    element:<MyAccount />
+  },
+  {
+    path:"*",
+    element: <NotFound />
   }
 
 ])

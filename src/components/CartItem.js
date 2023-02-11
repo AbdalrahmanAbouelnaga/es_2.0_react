@@ -1,17 +1,35 @@
 import React from 'react'
 import { CartContext } from '../context/CartContext'
 import { useContext } from 'react'
+import axiosInstance from '../axios'
 export const CartItem = ({initialItem,deleteOption}) => {
     const item = initialItem
     const {addToCart,decrementItem,removeFromCart} = useContext(CartContext)
-    function handleDecrementItem(item){
-        decrementItem({product:item.product,quantity:1})
+    async function handleDecrementItem(item){
+        if (item.quantity>1){
+        await decrementItem({product:item.product,quantity:1})
+        axiosInstance.post('/cart/change-item-quantity/',{"product":item.product.title,"quantity":item.quantity-1})
+            .then(res=>console.log(res))
+            .catch(error=>console.log(error))
+        }else{
+            removeFromCart(item.product.id)
+            axiosInstance.post('/cart/remove-from-cart/',{"product":item.product.title})
+                    .then(res => console.log(res))
+                    .catch(error=>console.log(error))
+        }
     }
-    function handleIncrementItem(item){
-        addToCart({product:item.product,quantity:1})
+    async function handleIncrementItem(item){
+        await addToCart({product:item.product,quantity:1})
+        axiosInstance.post('/cart/change-item-quantity/',{"product":item.product.title,"quantity":item.quantity+1})
+            .then(res=>console.log(res))
+            .catch(error=>console.log(error))
     }
-    function handleRemoveFromCart(item){
+    async function handleRemoveFromCart(item){
         removeFromCart(item.product.id)
+        axiosInstance.post('/cart/remove-from-cart/',{"product":item.product.title})
+                    .then(res => console.log(res))
+                    .catch(error=>console.log(error))
+
     }
     function itemTotalPrice(item){
         return item.quantity*item.product.price

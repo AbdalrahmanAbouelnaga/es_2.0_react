@@ -3,14 +3,19 @@ import { useState } from 'react'
 import { useContext } from 'react'
 import { CartContext } from '../context/CartContext'
 import { useEffect } from 'react'
-import axios from 'axios'
+import axiosInstance from '../axios'
+import { toast } from 'bulma-toast'
+import { AuthContext } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 const ProductDetail = () => {
+    const navigate = useNavigate()
     const [product,setProduct] = useState({})
     const [isLoading,setIsLoading] = useState(true)
     const [quantity,setQuantity] = useState(1)
     const {addToCart} = useContext(CartContext)
+    const {isAuthenticated} = useContext(AuthContext)
     useEffect(()=>{
-        axios.get(window.location.pathname)
+        axiosInstance.get(window.location.pathname)
              .then(response=>{
                 setProduct(response.data)
                 setIsLoading(false)
@@ -27,7 +32,30 @@ const ProductDetail = () => {
     }
     function handleAdd(e){
         e.target.disabled = true
-        addToCart({product,quantity})
+        if (isAuthenticated){
+        axiosInstance.post('/cart/add-to-cart/',{"product":product.title,"quantity":quantity})
+        .then(response=>{
+            addToCart({product,quantity})
+            toast({
+                message:"Added to cart",
+                position:'bottom-right',
+                dismissible:true,
+                pauseOnHover:true,
+                type:'is-success',
+                duration:1500
+            })
+        }).catch(error=>{
+            toast({
+                message:JSON.stringify(error.response.data),
+                position:'bottom-right',
+                dismissible:true,
+                pauseOnHover:true,
+                type:'is-danger',
+                duration:1500
+            })
+        })}else{
+            navigate('/login',{})
+        }
         setInterval(()=>{
             e.target.disabled = false
         },1000)
@@ -36,8 +64,12 @@ const ProductDetail = () => {
     function totalPrice(){
         return quantity * product.price
     }
+    function description(text){
+        let el = document.createElement('p')
+        el.innerHTML = text
+        return el.childNodes[0].nodeValue
+    }
 
-    
 
   return (
     (isLoading===true)?<></>:(<div className="column is-10 is-offset-1 columns" style={{marginTop:"5rem",}}>
@@ -47,8 +79,23 @@ const ProductDetail = () => {
         </figure>
     </div>
     <div className="column is-6">
-        <h1 className="title">{ product.title }</h1>
-        <p className="subtitle is-size-6"  dangerouslySetInnerHTML={{ __html: product.description }}></p>
+        <h1 className="title has-text-centered">{ product.title }</h1>
+        <table className='is-fullwidth table'>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody className=''>
+                {product.specs.map(spec=>(
+                    <tr key={spec.title} className=''>
+                        <td className=''>{spec.title}</td>
+                        <td className=''>{spec.desc}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
         <div className="box">
             <h2 className="subtitle">Information</h2>
             <p><strong>Price: </strong>$ { totalPrice().toFixed(2) }</p>
