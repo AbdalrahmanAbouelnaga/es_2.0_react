@@ -15,7 +15,8 @@ import MyAccount from './pages/MyAccount';
 import Checkout from './pages/Checkout';
 import Success from './pages/Success';
 import NotFound from './pages/NotFound';
-
+import OrderList from './pages/OrderList';
+import OrderDetail from './pages/OrderDetail';
 
 
 import { createBrowserRouter,RouterProvider } from 'react-router-dom';
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
   {
     path:'/cart/checkout/success/',
     element:<Success />
+  },
+  {
+    path:'/orders/',
+    element:<OrderList />
+  },
+  {
+    path:'/orders/:order_id/',
+    element:<OrderDetail />
   },
   {
     path:'/myaccount',

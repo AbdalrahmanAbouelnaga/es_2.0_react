@@ -59,7 +59,8 @@ export function Nav() {
                     {isAuthenticated?(
                         <>
                         <a href="/myaccount" className="navbar-item column button is-black">MyAccount</a>
-                        <a href="/cart" className="navbar-item column button is-black">Cart ({cart.items.reduce((acc,curVal)=>{return acc += curVal.quantity},0)})</a>
+                        <a href="/cart" className="navbar-item column button is-black">Cart</a>
+                        <a href="/orders" className="navbar-item column button is-black">Orders</a>
                         <a className="navbar-item column button is-black" onClick={removeToken}>Logout</a>
                         </>
                     ):(
