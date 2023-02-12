@@ -11,7 +11,7 @@ const OrderList = () => {
     },[])
 
     const orderList = orders.length?orders.map(order=>(
-        <div className="card">
+        <div className="card mt-3">
             <a href={order.url}>
                 <div className="card-content">
                     <div className="title">Order {order.order_id}</div>
