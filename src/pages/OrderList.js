@@ -7,6 +7,7 @@ const OrderList = () => {
         axiosInstance.get('/orders/')
                     .then(response=>setOrders(response.data))
                     .catch(error=>console.log(error))
+        document.title = "Order List"
     },[])
 
     const orderList = orders.length?orders.map(order=>(

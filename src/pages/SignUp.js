@@ -14,6 +14,8 @@ const SignUp = () => {
     const [password1,setPass]=useState('')
     const [password2,setConfPass]=useState('')
 
+    document.title = "Sign Up"
+
     function handleSubmit(e){
         e.preventDefault()
         if (password1 === password2){

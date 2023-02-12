@@ -19,6 +19,7 @@ const ProductDetail = () => {
              .then(response=>{
                 setProduct(response.data)
                 setIsLoading(false)
+                document.title = product.title
             })
              .catch(error=>console.log(error))
     },[])

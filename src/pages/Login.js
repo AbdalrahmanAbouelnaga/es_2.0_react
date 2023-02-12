@@ -13,6 +13,8 @@ export default function Login() {
     const [password,setPassword]= useState('')
     const [showPass,setShowPass]= useState(false)
 
+    document.title = "Login"
+
     function changeUsername(e){
         setUsername(e.target.value)
     }

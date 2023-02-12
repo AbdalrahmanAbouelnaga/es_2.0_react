@@ -1,5 +1,6 @@
 
 const Success = () => {
+  document.title = "Success"
   return (
     <div className="column is-12 mt-6">
         <h1 className="title">Checkout Successfull</h1>

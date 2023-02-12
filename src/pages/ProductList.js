@@ -16,6 +16,7 @@ const ProductList = () => {
              }).catch(error=>{
                 console.log(error)
              })
+        document.title = "Product List"
     },[])
 
     let productBoxes = products.map(product=>{

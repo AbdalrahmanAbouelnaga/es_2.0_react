@@ -1,4 +1,5 @@
 const NotFound = () => {
+  document.title = "404 Not Found"
   return (
     <div className="column is-10 is-offset-1 mt-6" style={{height:"50vh",}}>
         <h1 className="title">404 Not Found</h1>

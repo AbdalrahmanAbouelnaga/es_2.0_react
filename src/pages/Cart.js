@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { CartItem } from '../components/CartItem'
 const Cart = () => {
     const {cart} = useContext(CartContext)
-    
+    document.title = "Cart"
     const cartTable = cart.items?cart.items.map(item=>
         <CartItem
                         key="item.product.id" 

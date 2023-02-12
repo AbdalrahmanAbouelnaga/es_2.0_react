@@ -18,7 +18,7 @@ const Checkout = () => {
   const [stripe,setStripe] = useState({})
   const [card,setCard] = useState(<></>)
   
-
+  document.title = "Checkout"
   const tableItems = cart.items.map(item=>(
     <CartItem initialItem={item} key={item.product.title} deleteOption={false} />
   ))

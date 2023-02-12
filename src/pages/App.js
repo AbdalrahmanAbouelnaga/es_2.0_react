@@ -19,6 +19,7 @@ function App() {
          .then(response=>{
           setProducts(response.data)
          }).catch(error=>console.log(error))
+    document.title = "Latest Products"
   },[])
 
   let productBoxes = products.map(product=>{

@@ -9,6 +9,7 @@ const MyAccount = () => {
         axiosInstance.get('/user/')
             .then(response=>setUser(response.data))
             .catch(error=>console.log(error))
+        document.title = "My Account"
     },[])
 
     const pages = (<AccountInfo user={user} />)
