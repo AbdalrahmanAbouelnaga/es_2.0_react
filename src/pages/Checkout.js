@@ -2,7 +2,6 @@ import axiosInstance from "../axios"
 import {CartItem} from '../components/CartItem'
 import { useState,useContext } from "react"
 import { CartContext } from "../context/CartContext"
-import axios from "axios"
 const Checkout = () => {
   const {cart} = useContext(CartContext)
   const [first_name,setFirstName] = useState('')
@@ -13,10 +12,7 @@ const Checkout = () => {
   const [place,setPlace] = useState('')
   const [phone,setPhone] = useState('')
   const [info,setInfo] = useState(true)
-  const [paymentChoice,setChoice] = useState(true)
-  const [useStripe,setStripeChoice] = useState(false)
-  const [stripe,setStripe] = useState({})
-  const [card,setCard] = useState(<></>)
+
   
   document.title = "Checkout"
   const tableItems = cart.items.map(item=>(
@@ -78,7 +74,7 @@ const Checkout = () => {
     </div>
 
     {info?<div className="column is-10 is-offset-1 columns box mt-3">
-      <form className="columns is-multiline" onSubmit={(e)=>{handleShiping(e)}}>
+      <form className="columns is-multiline p-5" onSubmit={(e)=>{handleShiping(e)}}>
         <div className="column is-12">
           <h1 className="title">
             Shipping Details

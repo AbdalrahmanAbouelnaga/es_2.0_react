@@ -24,7 +24,7 @@ const OrderList = () => {
                 </div>
             </a>
         </div>
-    )):null
+    )):<p className="box p-3">You haven't ordered anything yet...</p>
     return (
     <div className="column is-8 is-offset-2 mt-6">
         {orderList}

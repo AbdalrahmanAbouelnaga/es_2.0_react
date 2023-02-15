@@ -71,9 +71,7 @@ const ProductDetail = () => {
     function changeImage(direction){
         const active = document.querySelector(".is-active")
 
-        console.log(active)
         let index = direction===-1?parseInt(active.id.split('-')[1])-1:parseInt(active.id.split('-')[1])+1
-        console.log(index)
         if (parseInt(active.id.split('-')[1]) === 0 && direction === -1) return
         if (parseInt(active.id.split('-')[1]) === (document.querySelectorAll('img').length-1) && direction === 1) return
         active.classList.remove("is-active")
