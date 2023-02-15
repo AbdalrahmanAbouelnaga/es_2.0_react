@@ -42,14 +42,17 @@ const SignUp = () => {
                 })
                 .catch(error=>{
                     console.log(error)
+                    for (let err in error.response.data){
+                        console.log(error.response.data[err])
                     toast({
-                        message:"Something went wrong. Please try again",
+                        message:error.response.data[err][0],
                         type:"is-warning",
                         pauseOnHover:true,
                         dismissible:true,
                         position:"bottom-right",
                         duration:1500
                     })
+                }
                 })
         }else{
             toast({
