@@ -4,7 +4,7 @@ export const ProductBox = (props) => {
     const product = props.product
   return (
     <div className={`${styles.card} column is-3`}>
-    <a href={product.url}><img src={product.images[0].thumbnail} alt="" className={styles.cardImg} /></a>
+    <a href={product.url}><img src={product.images[0].thumbnail} alt="" className={styles.cardImg}/></a>
     <div className={styles.cardInfo}>
       <p className={`${styles.textTitle} is-size-6`}>{product.title}</p>
     </div>

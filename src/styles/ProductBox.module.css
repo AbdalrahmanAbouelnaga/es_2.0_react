@@ -19,6 +19,9 @@
     width: 100%;
     border-radius: .5rem;
     transition: .3s ease;
+    height: 11rem;
+    object-fit: contain;
+    background: white;
    }
    
    .cardInfo {

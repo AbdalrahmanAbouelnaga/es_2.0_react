@@ -7,6 +7,7 @@ import axiosInstance from '../axios'
 import { toast } from 'bulma-toast'
 import { AuthContext } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import {AiOutlineRight,AiOutlineLeft} from 'react-icons/ai'
 const ProductDetail = () => {
     const navigate = useNavigate()
     const [product,setProduct] = useState({})
@@ -19,7 +20,7 @@ const ProductDetail = () => {
              .then(response=>{
                 setProduct(response.data)
                 setIsLoading(false)
-                document.title = product.title
+                document.title = response.data.title
             })
              .catch(error=>console.log(error))
     },[])
@@ -65,18 +66,50 @@ const ProductDetail = () => {
     function totalPrice(){
         return quantity * product.price
     }
-    function description(text){
-        let el = document.createElement('p')
-        el.innerHTML = text
-        return el.childNodes[0].nodeValue
+
+
+    function changeImage(direction){
+        const active = document.querySelector(".is-active")
+
+        console.log(active)
+        let index = direction===-1?parseInt(active.id.split('-')[1])-1:parseInt(active.id.split('-')[1])+1
+        console.log(index)
+        if (parseInt(active.id.split('-')[1]) === 0 && direction === -1) return
+        if (parseInt(active.id.split('-')[1]) === (document.querySelectorAll('img').length-1) && direction === 1) return
+        active.classList.remove("is-active")
+        active.classList.add("is-hidden")
+        const next = document.querySelector(`#index-${index}`)
+        
+        next.classList.remove("is-hidden")
+        next.classList.add("is-active")
+        
+        
     }
+    
 
 
   return (
     (isLoading===true)?<></>:(<div className="column is-10 is-offset-1 columns" style={{marginTop:"5rem",}}>
     <div className="column is-6">
         <figure className="image">
-            <img src={product.images[0].image} alt='' />
+            {product.images.map((image,index)=>
+            <img src={image.image}
+                 key={`${product.title}-${index}`} 
+                 className={index>0?"is-hidden":"is-active"}
+                 id={`index-${index}`} 
+                 alt='' 
+                 style={{width:"100%",height:"24.4rem",objectFit:"contain"}}/>)}
+
+
+            {product.images.length>1?(
+            <div className='is-flex is-justify-content-center'>
+                <button className='button is-small' onClick={()=>{changeImage(-1)}}>
+                    <AiOutlineLeft />
+                </button>
+                <button className='button is-small' onClick={()=>{changeImage(1)}}>
+                    <AiOutlineRight />
+                </button>
+            </div>):null}
         </figure>
     </div>
     <div className="column is-6">
