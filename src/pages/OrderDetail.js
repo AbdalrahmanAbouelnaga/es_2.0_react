@@ -9,7 +9,7 @@ const OrderDetail = () => {
         axiosInstance.get(window.location.pathname)
                     .then(response=>setOrder(response.data))
                     .catch(error=>console.log(error))
-        document.title = `Order ${order.order_id}`
+        document.title = `Order ${response.data.order_id}`
     },[])
 
     const tableItems = order.items?order.items.map(item=>(
